@@ -17,7 +17,6 @@ Include the following sections:
 
 Use only information that can be reasonably determined from the image.
 Do not invent missing details.
-If an important specification cannot be identified, write "Not specified".
 
 Generate the entire advertisement in Polish.
 """.strip()
@@ -107,11 +106,7 @@ if api_key:
         help="If set, this value overrides the model selected above.",
     )
 
-    prompt = st.text_area(
-        "Prompt",
-        value=DEFAULT_PROMPT,
-        height=120,
-    )
+    prompt = DEFAULT_PROMPT
 
     st.subheader("Dodatkowe dane do ogłoszenia")
     listing_title = st.text_input(
@@ -209,13 +204,7 @@ if api_key:
                                 key="download_with_title",
                             )
 
-                        st.subheader("Wnioski do raportu")
-                        st.write(
-                            "Porównaj dokładność i kompletność tytułu, opisu oraz parametrów "
-                            "specjalnych dla obu wariantów. Zapisz, czy tytuł: "
-                            "poprawił opis, ograniczył zgadywanie, doprecyzował parametry "
-                            "czy też wprowadził niepotwierdzoną interpretację."
-                        )
+
                     else:
                         final_prompt_with_title = final_prompt
                         if listing_title.strip():
