@@ -65,9 +65,124 @@ def fetch_available_gpt_models(client):
     return allowed_models
 
 # Streamlit app layout
-st.set_page_config(page_title="Generator ogłoszeń AI", page_icon=":camera:")
-st.title("Generator ogłoszeń na podstawie zdjęcia")
-st.write("Prześlij zdjęcie, opcjonalnie podaj tytuł i porównaj ogłoszenie wygenerowane bez tytułu oraz z tytułem.")
+st.set_page_config(
+    page_title="Generator ogłoszeń AI",
+    page_icon=":camera:",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background:
+            radial-gradient(circle at 8% 0%, rgba(99, 102, 241, .14), transparent 28rem),
+            radial-gradient(circle at 100% 10%, rgba(14, 165, 233, .12), transparent 24rem),
+            #f8fafc;
+    }
+    .block-container {
+        max-width: 1180px;
+        padding-top: 2.5rem;
+        padding-bottom: 4rem;
+    }
+    .hero {
+        padding: 2.25rem 2.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(99, 102, 241, .16);
+        border-radius: 28px;
+        background: linear-gradient(135deg, #312e81 0%, #4f46e5 52%, #0284c7 100%);
+        color: white;
+        box-shadow: 0 18px 45px rgba(49, 46, 129, .20);
+    }
+    .hero .eyebrow {
+        margin: 0 0 .45rem;
+        color: #c7d2fe;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+    }
+    .hero h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        line-height: 1.08;
+    }
+    .hero p {
+        max-width: 680px;
+        margin: 1rem 0 0;
+        color: #e0e7ff;
+        font-size: 1.05rem;
+    }
+    .info-card {
+        min-height: 100px;
+        padding: 1.1rem 1.25rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .82);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+    }
+    .info-card strong {
+        display: block;
+        margin-bottom: .35rem;
+        color: #1e293b;
+        font-size: 1rem;
+    }
+    .info-card span {
+        color: #64748b;
+        font-size: .9rem;
+    }
+    [data-testid="stFileUploader"] {
+        padding: .35rem;
+        border: 2px dashed #c7d2fe;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, .72);
+    }
+    [data-testid="stFileUploader"]:hover {
+        border-color: #6366f1;
+        background: #eef2ff;
+    }
+    .stButton > button, .stDownloadButton > button {
+        border-radius: 12px;
+        border: 0;
+        font-weight: 700;
+        transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(79, 70, 229, .22);
+    }
+    </style>
+    <div class="hero">
+        <p class="eyebrow">AI powered marketplace studio</p>
+        <h1>Generator ogłoszeń ze zdjęcia</h1>
+        <p>Dodaj zdjęcie, a przygotujemy przejrzyste i gotowe do publikacji ogłoszenie po polsku.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+info_left, info_middle, info_right = st.columns(3)
+with info_left:
+    st.markdown(
+        '<div class="info-card"><strong>01 · Dodaj zdjęcie</strong>'
+        '<span>Obsługujemy JPG, PNG i WEBP.</span></div>',
+        unsafe_allow_html=True,
+    )
+with info_middle:
+    st.markdown(
+        '<div class="info-card"><strong>02 · Dodaj kontekst</strong>'
+        '<span>Opcjonalny tytuł pomoże dopasować treść.</span></div>',
+        unsafe_allow_html=True,
+    )
+with info_right:
+    st.markdown(
+        '<div class="info-card"><strong>03 · Pobierz wynik</strong>'
+        '<span>Otrzymasz tekst gotowy do publikacji.</span></div>',
+        unsafe_allow_html=True,
+    )
+
+st.write("")
 st.caption(
     f"Rate limits: {MAX_REQUESTS_PER_MINUTE} request(s)/minute and {MAX_REQUESTS_PER_DAY} request(s)/day per user session."
 )
